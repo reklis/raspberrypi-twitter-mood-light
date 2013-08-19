@@ -1,4 +1,3 @@
-happy
 happiest
 excited
 woot
@@ -13,5 +12,4 @@ just right
 fuck yeah
 FTW
 perfect
-lol
 party
