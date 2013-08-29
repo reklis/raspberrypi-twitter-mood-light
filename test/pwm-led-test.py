@@ -52,25 +52,33 @@ def led_show_rgb(rgb_pwm, rgb_color):
   rgb_pwm[0].ChangeDutyCycle(100 * r / 255)
   rgb_pwm[1].ChangeDutyCycle(100 * g / 255)
   rgb_pwm[2].ChangeDutyCycle(100 * b / 255)
+
+def led_change_brightness(rgb_pwm, freq):
+  for pwm in rgb_pwm:
+    pwm.ChangeFrequency(freq)
  
 def main():
   try:
     rgb_pwm = led_setup()
 
+    white = 0xFFB4B4
+    pink = 0xFF005A
+    orange = 0xFF2300
+    yellow = 0xFF5005
+    green = 0x00FF00
+    blue = 0x0000FF
+    magenta = 0xFF00FF
 
-    red = 0xFF0000 
-    orange = 0xFF7F00 
-    yellow = 0xFFFF00 
-    green = 0x00FF00 
-    blue = 0x0000FF 
-    indigo = 0x4B0082 
-    violet = 0x8F00FF 
-
-    color_bands = [red, orange, yellow, green, blue, indigo, violet]
+    color_bands = [white, pink, orange, yellow, green, blue, magenta]
   
     for rgb_color in color_bands:
       led_show_rgb(rgb_pwm, rgb_color)
-      time.sleep(3)
+      for freq in range(1,60):
+        led_change_brightness(rgb_pwm, freq)
+        time.sleep(.3)
+      for freq in range(60,1):
+        led_change_brightness(rgb_pwm, freq)
+        time.sleep(.3)
   
     led_cleanup(rgb_pwm)
 
