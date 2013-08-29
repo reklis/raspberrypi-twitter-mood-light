@@ -3,10 +3,6 @@
 import time
 import RPi.GPIO as GPIO
 
-# Common Cathode RGB-LEDs
-RGB_ENABLE = 1
-RGB_DISABLE = 0
- 
 # LED CONFIG - Set GPIO Ports
 # http://www.hobbytronics.co.uk/image/data/tutorial/raspberry-pi/gpio-pinout.jpg
 
@@ -15,7 +11,6 @@ GREEN_PIN = 13  # GPIO 21
 BLUE_PIN  = 15  # GPIO 22
 LED_PINS = [RED_PIN, GREEN_PIN, BLUE_PIN]
 
-# global pwm handles
 PWM_FREQUENCY = 60 # update frequency in Hz
  
 def led_setup():
@@ -59,18 +54,25 @@ def led_change_brightness(rgb_pwm, freq):
 def main():
   rgb_pwm = led_setup()
 
-  white = 0xFFB4B4
-  pink = 0xFF005A
-  orange = 0xFF2300
-  yellow = 0xFF5005
-  green = 0x00FF00
+  white = 0xFF2020
+  pink = 0xFF0120
+  orange = 0xdd0501
+  yellow = 0xFF3001
+  green = 0x002000
   blue = 0x0000FF
-  magenta = 0xFF00FF
+  magenta = 0xFF00EE
 
   color_bands = [white, pink, orange, yellow, green, blue, magenta]
 
   for rgb_color in color_bands:
     led_show_rgb(rgb_pwm, rgb_color)
+    time.sleep(5)
+
+  while 1:
+    rgb_color = int(raw_input("enter a hex value: "), 0)
+    led_show_rgb(rgb_pwm, rgb_color)
+
+
     # for freq in range(1,60):
     #   led_change_brightness(rgb_pwm, freq)
     #   time.sleep(.3)
