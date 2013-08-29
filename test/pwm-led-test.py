@@ -57,32 +57,33 @@ def led_change_brightness(rgb_pwm, freq):
     pwm.ChangeFrequency(freq)
  
 def main():
-  try:
-    rgb_pwm = led_setup()
+  rgb_pwm = led_setup()
 
-    white = 0xFFB4B4
-    pink = 0xFF005A
-    orange = 0xFF2300
-    yellow = 0xFF5005
-    green = 0x00FF00
-    blue = 0x0000FF
-    magenta = 0xFF00FF
+  white = 0xFFB4B4
+  pink = 0xFF005A
+  orange = 0xFF2300
+  yellow = 0xFF5005
+  green = 0x00FF00
+  blue = 0x0000FF
+  magenta = 0xFF00FF
 
-    color_bands = [white, pink, orange, yellow, green, blue, magenta]
-  
-    for rgb_color in color_bands:
-      led_show_rgb(rgb_pwm, rgb_color)
-      # for freq in range(1,60):
-      #   led_change_brightness(rgb_pwm, freq)
-      #   time.sleep(.3)
-      # for freq in range(60,1):
-      #   led_change_brightness(rgb_pwm, freq)
-      #   time.sleep(.3)
-  
-    led_cleanup(rgb_pwm)
+  color_bands = [white, pink, orange, yellow, green, blue, magenta]
 
-  except Exception as ex:
-    print ex
-    GPIO.cleanup()
-  
-main()
+  for rgb_color in color_bands:
+    led_show_rgb(rgb_pwm, rgb_color)
+    # for freq in range(1,60):
+    #   led_change_brightness(rgb_pwm, freq)
+    #   time.sleep(.3)
+    # for freq in range(60,1):
+    #   led_change_brightness(rgb_pwm, freq)
+    #   time.sleep(.3)
+
+  led_cleanup(rgb_pwm)
+
+try:  
+  main()
+except KeyboardInterrupt:
+  GPIO.cleanup()
+except Exception as ex:
+  print ex
+  GPIO.cleanup()
