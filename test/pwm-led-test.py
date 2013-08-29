@@ -40,9 +40,8 @@ def led_setup():
   return [RED_PWM, GREEN_PWM, BLUE_PWM]
  
 def led_cleanup(rgb_pwm):
-  rgb_pwm[0].stop()
-  rgb_pwm[1].stop()
-  rgb_pwm[2].stop()
+  for pwm in rgb_pwm:
+    pwm.stop()
 
 def led_show_rgb(rgb_pwm, rgb_color):
   r = (rgb_color >> 16) & 0xFF
