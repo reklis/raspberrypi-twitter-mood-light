@@ -138,8 +138,8 @@ def update_output():
 
 if __name__ == '__main__':
     try:
-        ledcontroller = LightController(LED_PINS)
-        ledcontroller.bind_to_gpio()
+        ledcontroller = LightController()
+        ledcontroller.bind_to_gpio(LED_PINS)
 
         listener = MoodListener(ledcontroller)
         listener.load_word_list()
