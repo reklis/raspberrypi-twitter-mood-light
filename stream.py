@@ -3,13 +3,17 @@
 import re
 import json
 import threading
+import RPi.GPIO as GPIO
 
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
+
 from config import OAUTH_KEYS
 from config import MOOD_COLORS
 from config import MOOD_FOLDER
+from config import LED_PINS
+from config import LED_COLORS
 
 def setInterval(interval):
     def decorator(function):
@@ -28,8 +32,9 @@ def setInterval(interval):
     return decorator
 
 class MoodChecker(object):
-    def __init__(self):
+    def __init__(self, ledcontroller):
         super(MoodChecker, self).__init__()
+        self.ledcontroller = ledcontroller
         self.emotion_stack = list()
         self.match_phrases = list()
         self.emotion_index = dict()
@@ -69,11 +74,13 @@ class MoodChecker(object):
         winning_key = max(self.emotion_index, key=self.emotion_index.get)
         color = MOOD_COLORS[winning_key]
         print winning_key + " => " + color
+        self.ledcontroller.led_show_rgb(LED_COLORS[color])
+
 
 
 class MoodListener(StreamListener):
-    def load_word_list(self):
-        self.checker = MoodChecker()
+    def load_word_list(self, ledcontroller):
+        self.checker = MoodChecker(ledcontroller)
 
     def sample(self):
         self.checker.show_current_emotion()
@@ -93,6 +100,36 @@ class MoodListener(StreamListener):
         print status
 
 
+class LightController(object):
+    def bind_to_gpio(self, led_pins):
+        GPIO.setmode(GPIO.BOARD)
+
+        self.red_pwm = self.start_pwm(led_pins['red'])
+        self.green_pwm = self.start_pwm(led_pins['green'])
+        self.blue_pwm = self.start_pwm(led_pins['blue'])
+
+    def start_pwm(self, pin_id):
+        pwm_frequency = 60 # Hz
+        GPIO.setup(pin_id, GPIO.OUT)
+        pwm = GPIO.PWM(pin_id, pwm_frequency)
+        pwm.start(0)
+        return pwm
+
+    def led_show_rgb(self, rgb_color):
+        r = (rgb_color >> 16) & 0xFF
+        g = (rgb_color >> 8) & 0xFF
+        b = rgb_color & 0xFF
+
+        self.red_pwm.ChangeDutyCycle(100 * r / 255)
+        self.green_pwm.ChangeDutyCycle(100 * g / 255)
+        self.blue_pwm.ChangeDutyCycle(100 * b / 255)
+
+    def cleanup(self):
+        self.red_pwm.stop()
+        self.green_pwm.stop()
+        self.blue_pwm.stop()
+        GPIO.cleanup()
+
 
 @setInterval(5)
 def update_output():
@@ -101,7 +138,10 @@ def update_output():
 
 if __name__ == '__main__':
     try:
-        listener = MoodListener()
+        ledcontroller = LightController(LED_PINS)
+        ledcontroller.bind_to_gpio()
+
+        listener = MoodListener(ledcontroller)
         listener.load_word_list()
 
         output_interval = update_output()
@@ -117,4 +157,4 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, SystemExit):
         print '\n! Received keyboard interrupt, quitting threads.\n'
         output_interval.set()
-
+        GPIO.cleanup()
