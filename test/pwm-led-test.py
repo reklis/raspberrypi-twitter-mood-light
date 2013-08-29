@@ -72,12 +72,12 @@ def main():
   
     for rgb_color in color_bands:
       led_show_rgb(rgb_pwm, rgb_color)
-      for freq in range(1,60):
-        led_change_brightness(rgb_pwm, freq)
-        time.sleep(.3)
-      for freq in range(60,1):
-        led_change_brightness(rgb_pwm, freq)
-        time.sleep(.3)
+      # for freq in range(1,60):
+      #   led_change_brightness(rgb_pwm, freq)
+      #   time.sleep(.3)
+      # for freq in range(60,1):
+      #   led_change_brightness(rgb_pwm, freq)
+      #   time.sleep(.3)
   
     led_cleanup(rgb_pwm)
 
