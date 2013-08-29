@@ -141,8 +141,8 @@ if __name__ == '__main__':
         ledcontroller = LightController()
         ledcontroller.bind_to_gpio(LED_PINS)
 
-        listener = MoodListener(ledcontroller)
-        listener.load_word_list()
+        listener = MoodListener()
+        listener.load_word_list(ledcontroller)
 
         output_interval = update_output()
 
