@@ -109,6 +109,8 @@ class LightController(object):
         self.green_pwm = self.start_pwm(led_pins['green'])
         self.blue_pwm = self.start_pwm(led_pins['blue'])
 
+        self.current_color = 0
+
     def start_pwm(self, pin_id):
         pwm_frequency = 60 # Hz
         GPIO.setup(pin_id, GPIO.OUT)
@@ -117,6 +119,9 @@ class LightController(object):
         return pwm
 
     def led_show_rgb(self, rgb_color):
+        if self.current_color == rgb_color:
+            return
+
         r = (rgb_color >> 16) & 0xFF
         g = (rgb_color >> 8) & 0xFF
         b = rgb_color & 0xFF
@@ -124,6 +129,8 @@ class LightController(object):
         self.red_pwm.ChangeDutyCycle(100 * r / 255)
         self.green_pwm.ChangeDutyCycle(100 * g / 255)
         self.blue_pwm.ChangeDutyCycle(100 * b / 255)
+
+        self.curent_color = rgb_color
 
     def cleanup(self):
         self.red_pwm.stop()
