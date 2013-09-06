@@ -6,7 +6,7 @@
 int main()
 {
    setuid(0);
-   system("/home/pi/raspberrypi-twitter-mood-light/stream.py");
+   system("cd /home/pi/raspberrypi-twitter-mood-light/; ./stream.py");
 
    return 0;
 }
