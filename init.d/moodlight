@@ -1,0 +1,55 @@
+#!/bin/sh
+# Start/stop the moodlight daemon.
+#
+### BEGIN INIT INFO
+# Provides:          moodlight
+# Required-Start:    $network
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: twitter moodlight
+# Description:       twitter moodlight https://github.com/reklis/raspberrypi-twitter-mood-light
+### END INIT INFO
+
+set -e
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DESC="moodlight daemon"
+NAME=moodlight
+WORKDIR=/home/pi/raspberrypi-twitter-mood-light
+DAEMON=$WORKDIR/stream.py
+PIDFILE=/var/run/moodlight.pid
+SCRIPTNAME=/etc/init.d/"$NAME"
+
+test -f $DAEMON || exit 0
+
+. /lib/lsb/init-functions
+
+# Parse the system's environment
+if [ "$READ_ENV" = "yes" ] ; then
+    parse_environment
+fi
+
+case "$1" in
+start)	log_daemon_msg "Starting moodlight" "moodlight"
+        start-stop-daemon -S -b -m -p $PIDFILE -c root -d $WORKDIR -x $DAEMON
+        log_end_msg $?
+	;;
+stop)	log_daemon_msg "Stopping moodlight" "moodlight"
+        start-stop-daemon -K -p $PIDFILE
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && [ -e "$PIDFILE" ] && rm -f $PIDFILE
+        log_end_msg $RETVAL
+        ;;
+restart) log_daemon_msg "Restarting moodlight" "moodlight" 
+        $0 stop
+        $0 start
+        ;;
+status)
+        status_of_proc -p $PIDFILE $DAEMON $NAME && exit 0 || exit $?
+        ;;
+*)	log_action_msg "Usage: /etc/init.d/moodlight {start|stop|status|restart}"
+        exit 2
+        ;;
+esac
+exit 0

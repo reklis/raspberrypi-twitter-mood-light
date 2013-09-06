@@ -21,24 +21,15 @@ A mood light for twitter indented to be run on the raspberry pi
 
 If you want the program to start automatically, you'll need to compile the C launcher, setuid and schedule it
     
-    # compile startlight.c to bin/startlight
-    make
+    # install the start script
+    # might want to double check the paths in here
+    sudo cp init.d/moodlight /etc/init.d/moodlight
 
-    # setuid as root on the executable stub so it has permissions to control gpio
-    sudo chown root:root /home/pi/raspberrypi-twitter-mood-light/bin/startlight
-		sudo chmod 4755 /home/pi/raspberrypi-twitter-mood-light/bin/startlight
-
-    # lazy way of getting something to run at boot time
-    sudo vi /etc/rc.local
-
-    # add this BEFORE the exit 0
-     sleep 30 # wait for the wifi to connect
-     nohup /home/pi/raspberrypi-twitter-mood-light/bin/startlight &
-    # ESC :wq
-  
+    # add it as the last thing to run
+    sudo update-rc.d moodlight defaults 99
+ 
+    # reboot 
     sudo shutdown -r now
-
-If you feel generous, you'll fork this and make a real init.d script and send me a pull request: [Details on /etc/init.d](http://www.debian-administration.org/articles/28)
 
 Note: Be aware streaming from twitter and analyzing tweets does use a lot of CPU and network.  If you've added it to startup, be patient as it will likely cause subsequent ssh connections to be very slowm, you'll want to stop the script to do any remote administative work.  It seems to run at around 30-40% cpu depending on tweet volume, and it may be best to do [a bit of light overclocking](http://lifehacker.com/5944867/overclock-a-raspberry-pi-without-voiding-your-warranty).
 
