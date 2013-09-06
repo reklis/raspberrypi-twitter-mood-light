@@ -31,7 +31,7 @@ If you want the program to start automatically, you'll need to schedule it
     # reboot 
     sudo shutdown -r now
 
-Note: Be aware streaming from twitter and analyzing tweets does use a lot of CPU and network.  If you've added it to startup, be patient as it will likely cause subsequent ssh connections to be very slowm, you'll want to stop the script to do any remote administative work.  It seems to run at around 30-40% cpu depending on tweet volume, and it may be best to do [a bit of light overclocking](http://lifehacker.com/5944867/overclock-a-raspberry-pi-without-voiding-your-warranty).
+Note: Be aware streaming from twitter and analyzing tweets does use a lot of CPU and network.  If you've added it to startup, be patient as it will likely cause subsequent ssh connections to be very slow, you'll want to stop the script to do any remote administative work.  It seems to run at around 30-40% cpu depending on tweet volume, and it may be best to do [a bit of light overclocking](http://lifehacker.com/5944867/overclock-a-raspberry-pi-without-voiding-your-warranty).
 
 
 ### Shopping List
