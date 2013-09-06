@@ -1,21 +1,24 @@
-# You need to replace these with your own values
+# Get your own
+# http://dev.twitter.com
 OAUTH_KEYS = {
-    'consumer_key': "9YxBTkCcerf1rG9Erdi3g",
-    'consumer_secret': "3fzuMs9W9jOYKgxBszvuwBbovdITQLxoTCfG1qRs",
-    'access_token_key': "19676092-ib5d9bnDiSX5bORp6qpHOl3EKxn1dKzI0tK08KigH",
-    'access_token_secret': "tJw9MKss6FEVIbVwfI2dXxFfJEWWOPHymcCNc5Gmg"
+  'consumer_key': "9YxBTkCcerf1rG9Erdi3g",
+  'consumer_secret': "3fzuMs9W9jOYKgxBszvuwBbovdITQLxoTCfG1qRs",
+  'access_token_key': "19676092-ib5d9bnDiSX5bORp6qpHOl3EKxn1dKzI0tK08KigH",
+  'access_token_secret': "tJw9MKss6FEVIbVwfI2dXxFfJEWWOPHymcCNc5Gmg"
 }
+
+MOOD_LIMIT = 500
 
 MOOD_FOLDER = "mood"
 
 MOOD_COLORS = {
-    'anger': 'red',
-    'joy': 'yellow',
-    'love': 'pink',
-    'fear': 'white',
-    'envy': 'green',
-    'surprise': 'orange',
-    'sadness': 'blue'
+  'anger': 'red',
+  'joy': 'yellow',
+  'love': 'pink',
+  'fear': 'white',
+  'envy': 'green',
+  'surprise': 'orange',
+  'sadness': 'blue'
 }
 
 LED_COLORS = {
@@ -32,8 +35,8 @@ LED_COLORS = {
 
 # http://www.hobbytronics.co.uk/image/data/tutorial/raspberry-pi/gpio-pinout.jpg
 LED_PINS = {
-    'red': 11,      # GPIO 17
-    'green': 13,    # GPIO 21
-    'blue': 15      # GPIO 22
+  'red': 11,      # GPIO 17
+  'green': 13,    # GPIO 21
+  'blue': 15      # GPIO 22
 }
 

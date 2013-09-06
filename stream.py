@@ -10,6 +10,7 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 
 from config import OAUTH_KEYS
+from config import MOOD_LIMIT
 from config import MOOD_COLORS
 from config import MOOD_FOLDER
 from config import LED_PINS
@@ -65,7 +66,7 @@ class MoodChecker(object):
         # print self.emotion_stack
         self.emotion_index[emotion] = self.emotion_index[emotion] + 1
 
-        if 100 < len(self.emotion_stack):
+        if MOOD_LIMIT < len(self.emotion_stack):
             oldest_emotion = self.emotion_stack.pop(0)
             self.emotion_index[oldest_emotion] = self.emotion_index[oldest_emotion] - 1
 
