@@ -25,7 +25,7 @@ LED_COLORS = {
   'white': 0xFF2020,
   'red': 0xFF0000,
   'pink': 0xFF0120,
-  'orange': 0xdd0501,
+  'orange': 0xFF0800,
   'yellow': 0xFF3001,
   'green': 0x002000,
   'blue': 0x0000FF,
