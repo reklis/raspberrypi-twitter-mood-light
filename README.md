@@ -19,7 +19,7 @@ A mood light for twitter indented to be run on the raspberry pi
 
 ### boot launch
 
-If you want the program to start automatically, you'll need to compile the C launcher, setuid and schedule it
+If you want the program to start automatically, you'll need to schedule it
     
     # install the start script
     # might want to double check the paths in here
