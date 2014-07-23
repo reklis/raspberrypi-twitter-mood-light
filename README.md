@@ -18,6 +18,8 @@ A mood light for twitter indented to be run on the raspberry pi
 
 [If you need help setting up wifi read this](http://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/setting-up-wifi-with-occidentalis)
 
+You will also probably want to mess around with the files in the mood directory to make the colors better.
+
 ### boot launch
 
 If you want the program to start automatically, you'll need to schedule it
@@ -133,4 +135,8 @@ To build the lampshade, [follow these instructions and make a basic origami ball
 
 To frost the acrylic, scrub both the inside and outside of the container with some steel wool.  It takes a while, give it a good two minutes on each plane, trust me it's worth it to get a nice soft glow.  You don't need the top.
 
-Once that's done, dremel or drill a tiny hole in the back corner for the power cable, and place gently on top of the RPi, it should fit nicely on a diagnanol.
+Once that's done, dremel or drill a tiny hole in the back corner for the power cable, and place gently on top of the RPi, it should fit nicely on a diagonal.
+
+---
+
+[![gittip](http://img.shields.io/gittip/reklis.svg)](https://www.gittip.com/reklis/)
